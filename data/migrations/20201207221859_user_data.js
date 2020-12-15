@@ -12,7 +12,7 @@ exports.up = (knex) => {
         table.string('accommodationType');
       });
   };
-  
+    //NOTE 12/9/2020 : Will change ID to reference Profile ID if within best practices
   exports.down = (knex) => {
     return knex.schema.dropTableIfExists('user_data');
   };

@@ -11,7 +11,8 @@ exports.seed = function(knex) {
          address_2:'APT 6774',
          carType:'Rezvani',
          budget:123456789,
-         accommodationType:'Lush'   
+         accommodationType:'Lush',
+         id:2   
       }
       
       ]);
