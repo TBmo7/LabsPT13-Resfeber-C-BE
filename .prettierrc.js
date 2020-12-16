@@ -1,6 +1,10 @@
-module.exports = {
+module.exports =[ 
+'error',
+{
   trailingComma: 'es5',
-  tabWidth: 2,
-  semi: true,
-  singleQuote: true,
-};
+  tabWidth:4,
+  semi: false,
+  singleQuote: false,
+  endOfLine:"lf"
+}
+]
