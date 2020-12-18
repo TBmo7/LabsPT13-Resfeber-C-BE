@@ -9,6 +9,8 @@ exports.up = (knex) => {
         table.string('loc_name').notNullable();
         table.boolean('pinned');
         table.boolean('saved');
+        table.string('loc_notes');
+        table.integer('type_id');
         table.integer('user_id')
         .notNullable()
         .unsigned()

@@ -1,6 +1,6 @@
 const express = require('express');
 
-const Users = require('./user_dataModel.js');
+const Notes = require('./trip_notesModel.js');
 
 const router = express.Router();
 
@@ -8,12 +8,12 @@ const router = express.Router();
 
 router.get('/', (req,res)=>{
     console.log(req.body)
-    Users.find()
-    .then(users=>{
-        res.json(users)
+    Notes.find()
+    .then(notes=>{
+        res.json(notes)
     })
     .catch(err=>{
-        res.status(500).json({message:'Database failed to return users'})
+        res.status(500).json({message:'Database failed to return notes'})
         console.log(err)
     })
 })

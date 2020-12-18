@@ -7,7 +7,7 @@ const router = express.Router();
 /*********************GETS******************* */
 
 router.get('/', (req,res)=>{
-    console.log(req)
+    console.log(req.body)
     Locs.find()
     .then(locs=>{
         res.json(locs)
