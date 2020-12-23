@@ -5,13 +5,13 @@ exports.seed = function(knex) {
     .then(function () {
       // Inserts seed entries
       return knex('user_data').insert([
-        {user_name:'Yahzick',
+        {user_name:'Yahzick Fairweather',
          status:'Single',
          address_1:'2020 Mountain Way',
          address_2:'APT 6774',
          carType:'Rezvani',
          budget:123456789,
-         accommodationType:'Lush',
+         accommodationType:'Entire Place',
          id:2   
       }
       

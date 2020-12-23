@@ -1,12 +1,24 @@
-
+/**CORRELATES WITH ITEINERARY FROM YEN */
 exports.up = function(knex) {
   return knex.schema
 
   .createTable('trip_locs', tbl =>{
       tbl.increments('id').notNullable().unique().primary();
-      tbl.string('trip_loc_coords').notNullable();
+      tbl.string('destination_name').notNullable();
+      tbl.string('address').notNullable();
+      tbl.float('lat');
+      tbl.float('lng')
+      tbl.string('city');
+      tbl.string('state');
       tbl.string('loc_notes');
-      tbl.integer('type_id'); //type Ids to be added later
+      tbl.integer('trip_id')
+      .notNullable()
+      .unsigned()
+      .references('id')
+      .inTable('trips_data')
+      .onDelete('CASCADE')
+      .onUpdate('CASCADE')
+      
   })
 };
 

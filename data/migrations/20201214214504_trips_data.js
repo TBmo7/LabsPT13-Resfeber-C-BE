@@ -1,4 +1,4 @@
-
+//Correlates with trips from yen
 exports.up = function(knex) {
   return knex.schema
 
@@ -9,11 +9,11 @@ exports.up = function(knex) {
       tbl.string('end_date');
       tbl.string('overall_covid_score');
       tbl.integer('total_locations');
-      tbl.integer('user_id')
+      tbl.string('user_id')
       .notNullable()
       .unsigned()
       .references('id')
-      .inTable('user_data')
+      .inTable('profiles')
       .onDelete('CASCADE')
       .onUpdate('CASCADE')
   })

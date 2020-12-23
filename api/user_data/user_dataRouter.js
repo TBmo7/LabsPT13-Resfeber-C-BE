@@ -18,4 +18,17 @@ router.get('/', (req,res)=>{
     })
 })
 
+router.get('/:id', async (req,res)=>{
+    try{
+        const {id} = req.params;
+        Users.findById(id)
+        .then(user=>{
+            res.json(user)
+        })
+    }
+    catch(err){
+        res.status(500).json({message:'Database failed to return users'})
+    }
+})
+
 module.exports = router;

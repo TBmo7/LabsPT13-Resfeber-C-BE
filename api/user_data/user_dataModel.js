@@ -5,6 +5,8 @@ find,
 findBy,
 add,
 findById
+
+
 };
 
 function find(){
@@ -13,6 +15,7 @@ function find(){
 
 function findBy(filter){
     return db('user_data').where(filter).orderBy('id');
+    //Will work on this
 }
 
 async function add(user){

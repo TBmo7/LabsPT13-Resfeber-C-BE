@@ -56,10 +56,10 @@ app.use('/', indexRouter);
 app.use(['/profile', '/profiles'], profileRouter);
 app.use('/data', dsRouter);
 app.use('/user_data',user_dataRouter);
-app.use('/user_loc_data',user_locRouter);
-app.use('/user_trips_data',user_tripsRouter);
+app.use('/pins',user_locRouter);
+app.use('/trips',user_tripsRouter);
 app.use('/user_trips_notes',trip_notesRouter);
-app.use('/trip_locs',trip_locsRouter);
+app.use('/itinerary',trip_locsRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

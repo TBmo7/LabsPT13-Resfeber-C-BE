@@ -6,11 +6,16 @@ exports.seed = function(knex) {
       // Inserts seed entries
       return knex('user_locs').insert([
         {
-          loc_coords:['38,8951','-77.0364'], //Coords will be an array in order of LAT, LON
-          loc_name:'Washington DC',
-          pinned: true,
-          saved: false,
-          user_id: 2
+          destination_name:'Washington D.C.',
+          address:'601 13th Street NW',
+          lat: 38.8951 ,
+          lng: -77.0364,
+          city:'Washington D.C.',
+          state: 'District of Columbia',
+          notes:'Nice in the summertime',
+          category: 'Capitol',
+          user_id: '00ulthapbErVUwVJy4x6'
+
         }
       ]);
     });

@@ -3,8 +3,10 @@ const db = require('../../data/db-config.js');
 module.exports = {
 find,
 findBy,
-add,
-findById
+addTrip,
+findById,
+remove,
+update
 };
 
 function find(){
@@ -15,13 +17,26 @@ function findBy(filter){
     return db('trips_data').where(filter).orderBy('id');
 }
 
-async function add(user){
-    //there was a try, catch here but eslint hated it
-        const [id] = await db('trips_data').insert(user,'id')
-        return(findById(id))
-    
-}
 
 function findById(id){
     return db('trips_data').where({id}).first()
+}
+
+async function addTrip(trip){
+    try{
+        const [id] = await db('trips_data').insert(trip,'id')
+        return(findById(id))
+    }
+    catch(error){
+        throw(error)
+    }
+}
+function remove(id){
+    return db('trips_data').where('id',id).del()
+}
+
+function update(changes,id){
+    return db('trips_data')
+    .where('id',id)
+    .update(changes)
 }
