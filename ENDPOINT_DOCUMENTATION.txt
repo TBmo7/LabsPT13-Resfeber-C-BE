@@ -56,6 +56,50 @@ Post
     }
 
 
+*************** /pins **********************
+
+Keeps track of the user pins
+
+GETS
+
+/pins
+will return all pins
+
+/pins/id
+
+will return the pins that have that id
+
+POSTS
+
+/pins
+will add a pin
+
+{
+    id: automatically increments and is autmogically created
+    destination_name: **string, required**
+    address: **string, required**
+    lat: **float, required**
+    lng: **float, required**
+    city: **string, required**
+    state: **string, required**
+    notes: string
+    category: string
+    user_id: required, and references the id in the profiles table
+}
+
+PUTS
+
+/pins/id
+
+{
+    Only the ID is required for this one, and a field above to be modified
+}
+
+DELETES
+
+/pins/id
+
+
 
 *************** /profiles *******************
 

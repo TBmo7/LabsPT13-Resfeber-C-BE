@@ -41,7 +41,7 @@ router.post('/',(req,res)=>{
     })
     .catch(err=>{
         console.log(err)
-        console.log(trip)
+        
         res.status(500).json({message:"Database failed to add trip"})
         
     })
