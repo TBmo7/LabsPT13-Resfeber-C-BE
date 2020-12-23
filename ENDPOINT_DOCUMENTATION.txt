@@ -1,0 +1,75 @@
+This is the endpoint documentation and will be updated as the endpoints are updated.
+
+Endpoints**
+
+/profile or /profiles **12/22/2020 Working?**
+/trips **12/22/2020 Working**
+/pins
+/itinerary
+
+
+****************** /trips ******************
+
+This keeps track of the trips that are created.
+
+A get should return a json that looks like:
+
+id: int  **This is auto-incrementing**
+tripname: **string, required**
+start_date: **string, required**
+end_date: **string**
+overall_covid_score: **string, still working on what this should be**
+total_locations : int
+user_id: ** This should be the current logged in user's id,
+            this will reference the id field in the profiles table
+            to link these records together**
+
+Get
+
+/trips/id
+    will return that trip id
+
+Delete
+
+/trips/id
+    will delete that trip id
+
+Put
+
+/trips/id
+    will update that id
+
+Post
+
+/trips
+    will create a new trip
+
+    body example
+    {
+        tripname:string, **required**
+        start_date:string, **required**
+        end_date:string,
+        overall_covid_score:string,
+        total_locations:integer,
+        user_id:string **needs to be pulled in and included**
+
+    }
+
+
+
+*************** /profiles *******************
+
+This keeps track of the user profiles
+currently uses Okta/Oauth2 for authentication
+
+Should return
+id:string *!!* This is pulled in from Okata, required *!!*
+email: **string**
+user_name: **string, required, possibly unique**
+avatarUrl: **string**
+status: **string, this is relationship status?**
+address_1: **string, required **
+address_2: **string**
+carType: **string**
+budget: **integer**
+accommodation_type: **string**

@@ -23,7 +23,7 @@
     ],
     "rules": {
         "prettier/prettier":[
-            "error",
+            0,
             {
                 "endOfLine": "lf",
                 "semi": false,
