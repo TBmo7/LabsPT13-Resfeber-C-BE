@@ -51,7 +51,7 @@ router.post('/',(req,res)=>{
 
 router.delete('/:id',(req,res)=>{
     const {id} = req.body;
-
+    console.log(id)
     Trips.remove(id)
     .then(deleted=>{
         if(deleted) {
