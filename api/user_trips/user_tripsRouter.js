@@ -50,7 +50,7 @@ router.post('/',(req,res)=>{
 /*****DELETES */
 
 router.delete('/:id',(req,res)=>{
-    const {id} = req.params;
+    const {id} = req.body;
 
     Trips.remove(id)
     .then(deleted=>{
@@ -67,7 +67,7 @@ router.delete('/:id',(req,res)=>{
 })
 
 /************UPDATE************* */
-router.put('/:id',(req,res)=>{
+router.patch('/:id',(req,res)=>{
     const changes = req.body;
     const {id} = req.params;
 
