@@ -125,9 +125,13 @@ accommodation_type: **string**
 
 This currently hooks up with the DS API
 
-/temp_ds_api/Fuel/{state}
+/temp_ds_api/fuel/{state}
 
 We should only be sending GETS to this API, we are not writing to it
 
 The {state} parameters can be the State name, upper or lowercase, or the abbreviated state
 
+/temp_ds_api/viz/{state}
+
+The {state} parameters can ONLY BE THE ABBREVIATED STATE, Florida = FL, Oklahoma = OK, etc.
+This currently return ALL of the visualtization data, can trim if needed
