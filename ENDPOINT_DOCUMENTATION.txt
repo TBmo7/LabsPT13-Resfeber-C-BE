@@ -122,3 +122,12 @@ address_2: **string**
 carType: **string**
 budget: **integer**
 accommodation_type: **string**
+
+This currently hooks up with the DS API
+
+/temp_ds_api/Fuel/{state}
+
+We should only be sending GETS to this API, we are not writing to it
+
+The {state} parameters can be the State name, upper or lowercase, or the abbreviated state
+

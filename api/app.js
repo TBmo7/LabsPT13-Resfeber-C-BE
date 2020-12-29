@@ -27,6 +27,7 @@ const user_locRouter = require('./user_locs/user_locRouter');
 const user_tripsRouter = require('./user_trips/user_tripsRouter');
 const trip_notesRouter = require('./trip_notes/trip_notesRouter');
 const trip_locsRouter = require('./trip_locs/trip_locsRouter');
+const temp_dsRouter = require('./temp_ds_api/temp_ds_router')
 const app = express();
 
 process.on('unhandledRejection', (reason, p) => {
@@ -60,6 +61,7 @@ app.use('/pins',user_locRouter);
 app.use('/trips',user_tripsRouter);
 app.use('/user_trips_notes',trip_notesRouter);
 app.use('/itinerary',trip_locsRouter);
+app.use('/temp_ds_api',temp_dsRouter)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
