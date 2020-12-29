@@ -29,10 +29,15 @@ Get
 /trips/id
     will return that trip id
 
+/trips/id/itinerary
+    will return all locations that have the trip ID in params
+
 Delete
 
 /trips/id
     will delete that trip id
+
+
 
 Put
 

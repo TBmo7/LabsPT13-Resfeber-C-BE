@@ -5,6 +5,7 @@ find,
 findBy,
 addTrip,
 findById,
+findByTripId,
 remove,
 update
 };
@@ -17,6 +18,10 @@ function findBy(filter){
     return db('trips_data').where(filter).orderBy('id');
 }
 
+function findByTripId(tripId){
+    
+    return db('trip_locs').where('trip_id',tripId.id)
+}
 
 function findById(id){
     return db('trips_data').where({id}).first()

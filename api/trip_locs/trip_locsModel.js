@@ -6,6 +6,7 @@ module.exports = {
     find,
     findBy,
     addLoc,
+    findByTripId,
     findById,
     remove,
     update
@@ -17,6 +18,10 @@ function find(){
 
 function findBy(filter){
     return db('trip_locs').where(filter).orderBy('id')
+}
+
+function findByTripId(tripId){
+    return db('trip_locs').where('trip_id',tripId)
 }
 
 async function addLoc(trip_loc){

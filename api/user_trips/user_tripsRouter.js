@@ -30,6 +30,19 @@ router.get('/:id', (req,res)=>{
     })
 })
 
+router.get('/:id/itinerary',(req,res)=>{
+    const tripId = req.params;
+    console.log(tripId)
+    Trips.findByTripId(tripId)
+    .then(trips=>{
+        res.status(200).json(trips)
+    })
+    .catch(err=>{
+        //console.log(res.json)
+        res.status(500).json({message:'Database failed to return trips'})
+    })
+})
+
 /******ADDS************* */
 //VVVVVV-Add validation middleware below-VVVVVVV
 router.post('/',(req,res)=>{
