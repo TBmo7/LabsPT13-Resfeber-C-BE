@@ -1,7 +1,7 @@
 const express = require('express');
 //to be renamed "Trips" in the future
 const Trips = require('./user_tripsModel.js');
-
+const db = require('../../data/db-config.js');
 const router = express.Router();
 
 
@@ -19,7 +19,7 @@ router.get('/', (req,res)=>{
     })
 })
 
-router.get('/:id', (req,res)=>{
+router.get('/:id',validateUserTripsID, (req,res)=>{
     const {id} = req.params;
     Trips.findById(id)
     .then(trips=>{
@@ -30,7 +30,7 @@ router.get('/:id', (req,res)=>{
     })
 })
 
-router.get('/:id/itinerary',(req,res)=>{
+router.get('/:id/itinerary',validateUserTripLocsID,(req,res)=>{
     const tripId = req.params;
     console.log(tripId)
     Trips.findByTripId(tripId)
@@ -44,8 +44,8 @@ router.get('/:id/itinerary',(req,res)=>{
 })
 
 /******ADDS************* */
-//VVVVVV-Add validation middleware below-VVVVVVV
-router.post('/',(req,res)=>{
+
+router.post('/',validateBody,(req,res)=>{
     const trip = req.body
     Trips.addTrip(trip)
     
@@ -62,7 +62,7 @@ router.post('/',(req,res)=>{
 
 /*****DELETES */
 
-router.delete('/:id',(req,res)=>{
+router.delete('/:id',validateUserTripsID,(req,res)=>{
     const {id} = req.params;
 
     Trips.remove(id)
@@ -80,7 +80,7 @@ router.delete('/:id',(req,res)=>{
 })
 
 /************UPDATE************* */
-router.patch('/:id',(req,res)=>{
+router.patch('/:id',validateUserTripsID,(req,res)=>{
     const changes = req.body;
     const {id} = req.params;
 
@@ -101,5 +101,40 @@ router.patch('/:id',(req,res)=>{
         res.status(500).json({message:"database failed to update user"})
     })
 })
+
+/******************MIDDLEWARE************** */
+//Need to add one for trip_locs db
+async function validateUserTripsID (req,res,next){
+    const {id} = req.params;
+    const accounts = await db('trips_data').where('id',id)
+    if(accounts.length === 0){
+        next(res.status(404).json({message:"Not Found"}))
+    }
+    else{
+        next()
+    }
+}
+
+async function validateUserTripLocsID (req,res,next){
+    const {id} = req.params;
+    const accounts = await db('trips_locs').where('id',id)
+    if(accounts.length === 0){
+        next(res.status(404).json({message:"Not Found"}))
+    }
+    else{
+        next()
+    }
+}
+
+async function validateBody(req,res,next){
+    const tripName = req.body.tripname;
+    
+    if(!tripName){
+        next(res.status(400).json({message:"All Trips require a tripname"}))
+    }
+    else{
+        next()
+    }
+}
 
 module.exports = router;

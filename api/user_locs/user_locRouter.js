@@ -1,5 +1,5 @@
 const express = require('express');
-
+const db = require('../../data/db-config.js');
 const Locs = require('./user_locModel.js');
 
 const router = express.Router();
@@ -18,7 +18,7 @@ router.get('/', (req,res)=>{
     })
 })
 
-router.get('/:id', (req,res)=>{
+router.get('/:id', validateUserLocsID,  (req,res)=>{
     const {id} = req.params
 
     Locs.findById(id)
@@ -32,7 +32,7 @@ router.get('/:id', (req,res)=>{
 
 /***************ADDS***************** */
 
-router.post('/',(req,res)=>{
+router.post('/', validateBody, (req,res)=>{
     const pin = req.body
     Locs.addPin(pin)
 
@@ -47,7 +47,7 @@ router.post('/',(req,res)=>{
 
 /******************DELETES*********** */
 
-router.delete('/:id',(req,res)=>{
+router.delete('/:id', validateUserLocsID, (req,res)=>{
     const {id} = req.params;
 
     Locs.remove(id)
@@ -65,7 +65,7 @@ router.delete('/:id',(req,res)=>{
 
 /************UPDATE ************ */
 
-router.put('/:id',(req,res)=>{
+router.put('/:id', validateUserLocsID,(req,res)=>{
     const changes = req.body;
     const {id} = req.params;
 
@@ -87,4 +87,33 @@ router.put('/:id',(req,res)=>{
     })
 })
 
+/***********MIDDLEWARE********** */
+
+async function validateUserLocsID(req,res,next){
+    const {id} = req.params;
+    const accounts = await db('user_locs').where('id',id)
+    if(accounts.length === 0){
+        next(res.status(404).json({message:'Not Found'}))
+    }
+    else{
+        next()
+    }
+}
+
+async function validateBody(req,res,next){
+    const destinationName = req.body.destination_name;
+    const address = req.body.address;
+    const lat = req.body.lat;
+    const lng = req.body.lng;
+    const city = req.body.city;
+    const state = req.body.state;
+    
+    if(!destinationName || !address || !lat || !lng || !city || !state){
+        next(res.status(400).json({message:"All user locations require a destination name, address, lat, lng, city and state"}))
+    }
+    else{
+        next()
+    }
+
+}
 module.exports = router;

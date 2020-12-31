@@ -10,6 +10,7 @@ exports.up = function(knex) {
       tbl.float('lng')
       tbl.string('city');
       tbl.string('state');
+      tbl.string('category');
       tbl.string('loc_notes');
       tbl.integer('trip_id')
       .notNullable()

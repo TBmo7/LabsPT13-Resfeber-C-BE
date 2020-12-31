@@ -1,4 +1,5 @@
 const express = require('express');
+const db = require('../../data/db-config.js');
 
 const Trip_loc = require('./trip_locsModel.js');
 
@@ -18,7 +19,7 @@ router.get('/', (req,res)=>{
     })
 })
 
-router.get('/:id', (req,res)=>{
+router.get('/:id',validateTripLocsID, (req,res)=>{
     const {id} = req.params;
     Trip_loc.findById(id)
     .then(tripLoc=>{
@@ -29,6 +30,8 @@ router.get('/:id', (req,res)=>{
     })
 })
 
+
+/*
 router.get('/:id/trips', (req,res)=>{
     const {tripId} = req.params;
     Trip_loc.findByTripId(tripId)
@@ -39,10 +42,10 @@ router.get('/:id/trips', (req,res)=>{
         res.status(500).json({message:'Database failed to return data'})
     })
 })
-
+*/
 /****************ADDS*********** */
 
-router.post('/',(req,res)=>{
+router.post('/',validateBody,(req,res)=>{
     const tripLoc = req.body
     Trip_loc.addLoc(tripLoc)
 
@@ -57,7 +60,7 @@ router.post('/',(req,res)=>{
 
 /*****************DELETES********* */
 
-router.delete('/:id',(req,res)=>{
+router.delete('/:id',validateTripLocsID,(req,res)=>{
     const {id} = req.params;
 
     Trip_loc.remove(id)
@@ -76,7 +79,7 @@ router.delete('/:id',(req,res)=>{
 
 
 /******************UPDATES************ */
-router.put('/:id',(req,res)=>{
+router.put('/:id',validateTripLocsID,(req,res)=>{
     const changes = req.body;
     const {id} = req.params;
 
@@ -88,7 +91,7 @@ router.put('/:id',(req,res)=>{
                 res.json(updatedTripLoc)
             })
         } else {
-            res.status(404).json({message:'coud not find Itinerary with that id'})
+            res.status(404).json({message:'could not find Itinerary with that id'})
         } 
     })
     .catch(err=>{
@@ -96,5 +99,31 @@ router.put('/:id',(req,res)=>{
         res.status(500).json({message:"database failed to update user"})
     })
 })
+
+///**********MIDDLEWARE***************** */
+
+async function validateTripLocsID(req,res,next){
+    const {id} = req.params;
+    const accounts = await db('trip_locs').where('id',id)
+    if(accounts.length === 0){
+        next(res.status(404).json({message:"Not Found"}))
+    }
+    else{
+        next()
+    }
+}
+
+async function validateBody(req,res,next){
+    const destinationName = req.body.destination_name;
+    const address = req.body.address;
+    const tripId = req.body.trip_id;
+
+    if(!destinationName || !address || !tripId){
+        next(res.status(400).json({message:"All Trip Locs require a destination name and an address"}))
+    }
+    else{
+        next()
+    } 
+}
 
 module.exports = router;
