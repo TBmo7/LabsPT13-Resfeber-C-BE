@@ -32,6 +32,9 @@ Get
 /trips/id/itinerary
     will return all locations that have the trip ID in params
 
+/trips/id/user
+    THE ID HERE NEEDS TO BE A USER ID.
+    It will return all trips associated with that user id
 Delete
 
 /trips/id

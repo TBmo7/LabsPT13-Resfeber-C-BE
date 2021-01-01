@@ -6,6 +6,7 @@ findBy,
 addTrip,
 findById,
 findByTripId,
+findByUserId,
 remove,
 update
 };
@@ -21,6 +22,10 @@ function findBy(filter){
 function findByTripId(tripId){
     
     return db('trip_locs').where('trip_id',tripId.id)
+}
+
+function findByUserId(userId){
+    return db('trips_data').where('user_id',userId.id)
 }
 
 function findById(id){

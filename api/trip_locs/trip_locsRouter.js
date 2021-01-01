@@ -79,7 +79,7 @@ router.delete('/:id',validateTripLocsID,(req,res)=>{
 
 
 /******************UPDATES************ */
-router.put('/:id',validateTripLocsID,(req,res)=>{
+router.patch('/:id',validateTripLocsID,(req,res)=>{
     const changes = req.body;
     const {id} = req.params;
 

@@ -43,6 +43,18 @@ router.get('/:id/itinerary',validateUserTripLocsID,(req,res)=>{
     })
 })
 
+router.get('/:id/user',validateUserId,(req,res)=>{
+    const userId = req.params;
+    Trips.findByUserId(userId)
+
+    .then(trips=>{
+        res.status(200).json(trips)
+    })
+    .catch(err=>{
+        res.status(500).json({message:'Database failed to return trips'})
+    })
+})
+
 /******ADDS************* */
 
 router.post('/',validateBody,(req,res)=>{
@@ -108,6 +120,17 @@ async function validateUserTripsID (req,res,next){
     const {id} = req.params;
     const accounts = await db('trips_data').where('id',id)
     if(accounts.length === 0){
+        next(res.status(404).json({message:"Not Found"}))
+    }
+    else{
+        next()
+    }
+}
+
+async function validateUserId(req,res,next){
+    const {id} = req.params;
+    const accounts = await db('profiles').where('id',id)
+    if (accounts.length === 0){
         next(res.status(404).json({message:"Not Found"}))
     }
     else{

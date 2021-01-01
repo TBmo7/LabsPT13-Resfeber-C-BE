@@ -6,10 +6,10 @@ exports.up = function(knex) {
       tbl.increments('id').notNullable().unique().primary();
       tbl.string('destination_name').notNullable();
       tbl.string('address').notNullable();
-      tbl.float('lat');
-      tbl.float('lng')
-      tbl.string('city');
-      tbl.string('state');
+      tbl.float('lat').required();
+      tbl.float('lng').required();
+      tbl.string('city').required();
+      tbl.string('state').required();
       tbl.string('category');
       tbl.string('loc_notes');
       tbl.integer('trip_id')
