@@ -5,6 +5,7 @@ module.exports = {
     findBy,
     addPin,
     findById,
+    findByUserId,
     remove,
     update
 }
@@ -32,6 +33,11 @@ async function addPin(pin){
 function findById(id){
     return db('user_locs').where({id}).first()
 }
+
+function findByUserId(UserId){
+    return db('user_locs').where('user_id',UserId)
+}
+
 function remove(id){
     return db('user_locs').where('id',id).del()
 }

@@ -30,6 +30,18 @@ router.get('/:id', validateUserLocsID,  (req,res)=>{
     })
 })
 
+router.get('/:id/user',validateUserId,(req,res)=>{
+    const userId = req.params;
+    Locs.findByUserId(userId)
+
+    .then(pins=>{
+        res.status(200).json(pins)
+    })
+    .catch(err=>{
+        res.status(500).json({message:'Database failed to return pins'})
+    })
+})
+
 /***************ADDS***************** */
 
 router.post('/', validateBody, (req,res)=>{
@@ -94,6 +106,17 @@ async function validateUserLocsID(req,res,next){
     const accounts = await db('user_locs').where('id',id)
     if(accounts.length === 0){
         next(res.status(404).json({message:'Not Found'}))
+    }
+    else{
+        next()
+    }
+}
+
+async function validateUserId(req,res,next){
+    const {id} = req.params;
+    const accounts = await db('profiles').where('id',id)
+    if (accounts.length === 0){
+        next(res.status(404).json({message:"Not Found"}))
     }
     else{
         next()
