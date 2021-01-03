@@ -77,6 +77,10 @@ will return all pins
 
 will return the pins that have that id
 
+/pins/id/user
+
+NOTE: the ID passed into the params here should be the user ID
+
 POSTS
 
 /pins
