@@ -63,7 +63,7 @@ router.get('/state_covid/:id',(req,res)=>{
     })
 })
 
-router.get('/air_bnb', validateAirbnbBody,(req,res)=>{
+router.post('/air_bnb', validateAirbnbBody,(req,res)=>{
     /*
     const send_body = {
         "lat" : req.body.lat,
