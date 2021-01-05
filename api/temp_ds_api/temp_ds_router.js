@@ -43,4 +43,62 @@ router.get('/viz/:id', (req,res)=>{
     })
 })
 
+router.get('/state_covid/:id',(req,res)=>{
+      
+    const send_state = {
+        "state":req.params.id
+    }
+    
+    axios
+    .post(`http://labspt13-resfeber-c-ds.eba-ai47pmnm.us-east-1.elasticbeanstalk.com/state_covid/`,send_state)
+    .then(response=>{
+        data = response.data
+    })
+    .then(thing =>{
+        res.status(200).json(data)
+    })
+    .catch(err=>{
+        console.log(err)
+        res.status(500).json({message: "Error fetching API", error:err})
+    })
+})
+
+router.get('/air_bnb', validateAirbnbBody,(req,res)=>{
+    /*
+    const send_body = {
+        "lat" : req.body.lat,
+        "lon" : req.body.lon,
+        "room_type": req.body.room_type,
+        "num_nights": req.body.num_nights
+    }
+    */
+    const send_body = req.body
+    console.log("SEND BODY : " + send_body)
+    axios
+    .post('http://labspt13-resfeber-c-ds.eba-ai47pmnm.us-east-1.elasticbeanstalk.com/airbnb', send_body)
+    .then(response=>{
+        data = response.data
+    })
+    .then(thing=>{
+        res.status(200).json(data)
+    })
+    .catch(err=>{
+        console.log(err)
+        res.status(500).json({message:"Error fetching API", error:err})
+    })
+})
+
+async function validateAirbnbBody(req,res,next){
+    const lat = req.body.lat
+    const lon = req.body.lon
+    const room_type = req.body.room_type
+    const num_nights = req.body.num_nights
+    if(!lat || !lon || !room_type || !num_nights){
+        next(res.status(400).json({message:"To check Air BNB, we require a lat, lon, room_type, and num_nights"}))
+    }
+    else{
+        next()
+    }
+}
+
 module.exports = router

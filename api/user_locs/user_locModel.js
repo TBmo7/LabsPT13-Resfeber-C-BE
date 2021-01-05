@@ -34,8 +34,8 @@ function findById(id){
     return db('user_locs').where({id}).first()
 }
 
-function findByUserId(UserId){
-    return db('user_locs').where('user_id',UserId)
+function findByUserId(id){
+    return db('user_locs').where('user_id',id.id);
 }
 
 function remove(id){

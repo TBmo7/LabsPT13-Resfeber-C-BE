@@ -202,3 +202,31 @@ The {state} parameters can be the State name, upper or lowercase, or the abbrevi
 
 The {state} parameters can ONLY BE THE ABBREVIATED STATE, Florida = FL, Oklahoma = OK, etc.
 This currently return ALL of the visualtization data, can trim if needed
+
+/temp_ds_api/state_covid/{state}
+
+The state is the Abbreviated state, this will return the number of covid scores in a certain period
+
+/temp_ds_api/air_bnb
+
+You will need to have a body for this request, 
+The body should be as follows:
+{
+    "lat":string,
+    "lon":string,
+    "room_type":string,
+    "num_nights":int
+}
+
+Example:
+
+  {
+  "lat": 40.7128,
+  "lon": 74.006,
+  "room_type": "Entire home/apt",
+  "num_nights": 1
+  }
+
+You should get a float in return
+
+The above should return around 257.32
