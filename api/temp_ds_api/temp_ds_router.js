@@ -88,6 +88,24 @@ router.post('/air_bnb', validateAirbnbBody,(req,res)=>{
     })
 })
 
+router.get ('/covid_score_state/:id',(req,res)=>{
+    const state = req.params
+
+    axios
+    .get(`http://labspt13-resfeber-c-ds.eba-ai47pmnm.us-east-1.elasticbeanstalk.com/covid_score_state/${state.id}`)
+
+    .then(response=>{
+        data = response.data
+    })
+    .then(thing=>{
+        res.status(200).json(data)
+    })
+    .catch(err=>{
+        console.log(err)
+        res.status(500).json({message:"Error fetching API", error:err})
+    })
+})
+
 async function validateAirbnbBody(req,res,next){
     const lat = req.body.lat
     const lon = req.body.lon
